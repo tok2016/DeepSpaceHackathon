@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 namespace Shooter.Gameplay
 {
     public class Boss_A : Enemy
@@ -251,6 +253,13 @@ namespace Shooter.Gameplay
                 Vector3 v = Helper.RotatedLenght(i * 18, 15) + new Vector3(0, 20, 0);
                 obj1.GetComponent<Rigidbody>().linearVelocity = v;
             }
+        }
+
+        private void OnDestroy()
+        {
+            var fadeScreen = FindFirstObjectByType<FadeControl>();
+            fadeScreen.bossKilled = true;
+            fadeScreen.StartFadeOut();
         }
     }
 }

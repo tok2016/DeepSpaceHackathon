@@ -12,6 +12,8 @@ namespace Shooter.Gameplay
 
         public AnimationCurve m_MoveCurve;
 
+        public float Damage;
+        public float ExplosionRange;
         public GameObject m_ExplodeParticle;
         // Start is called before the first frame update
         void Start()
@@ -37,12 +39,25 @@ namespace Shooter.Gameplay
             }
 
             transform.position =  m_TargetPosition;
-            //exlpode
+            Explode();
             CameraControl.m_Current.StartShake(.3f, .15f);
             GameObject obj = Instantiate(m_ExplodeParticle);
             obj.transform.position = transform.position;
             Destroy(obj, 3);
             Destroy(gameObject);
+        }
+
+        void Explode()
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, ExplosionRange * transform.localScale.x);
+            foreach (var col in hitColliders)
+            {
+                DamageControl d = col.gameObject.GetComponent<DamageControl>();
+                if (d != null)
+                {
+                    d.ApplyDamage(Damage, transform.forward, 1);
+                }
+            }
         }
     }
 }

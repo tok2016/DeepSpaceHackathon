@@ -20,7 +20,8 @@ namespace Shooter.Gameplay
         [HideInInspector]
         public Vector3 LastDamageDirection;
         [HideInInspector]
-        public float LastDamageFactor = 1;
+        public float 
+            LastDamageFactor = 1;
 
         [HideInInspector]
         public float DamageShakeAmount;

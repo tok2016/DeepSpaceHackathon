@@ -58,7 +58,7 @@ namespace Shooter.Gameplay
                 {
                     obj = Instantiate(BulletPrefab);
                     obj.transform.position = m_FirePoint.position;
-                    obj.transform.forward = Quaternion.Euler(0,-6+ i * 6, 0) * m_FirePoint.forward;
+                    obj.transform.forward = m_FirePoint.forward;
                     Projectile_Base proj = obj.GetComponent<Projectile_Base>();
                     proj.Creator = m_Owner;
                     proj.Speed = ProjectileSpeed;
@@ -74,7 +74,7 @@ namespace Shooter.Gameplay
                 {
                     obj = Instantiate(BulletPrefab);
                     obj.transform.position = m_FirePoint.position;
-                    obj.transform.forward = Quaternion.Euler(0, -30+i * 10, 0) * m_FirePoint.forward;
+                    obj.transform.forward = m_FirePoint.forward;
                     Projectile_Base proj = obj.GetComponent<Projectile_Base>();
                     proj.Creator = m_Owner;
                     proj.Speed = ProjectileSpeed;
@@ -89,6 +89,7 @@ namespace Shooter.Gameplay
             obj.transform.localPosition = Vector3.zero;
             obj.transform.forward = m_ParticlePoint.forward;
             Destroy(obj, 3);
+            Recoil(m_Owner);
         }
     }
 }

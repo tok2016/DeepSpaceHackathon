@@ -122,7 +122,7 @@ namespace Shooter.Gameplay
             InputEnable = true;
             //Cursor.lockState = CursorLockMode.Locked;
 
-            MainWeapons = new Weapon_Base[2];
+            MainWeapons = new Weapon_Base[4];
 
 
             //if (m_DataStorage.Level_Weapons[0] != -1)
@@ -285,10 +285,10 @@ namespace Shooter.Gameplay
             //    Input_Force = true;
             //}
 
-            //if (Input.GetKeyDown(KeyCode.Q))
-            //{
-            //    Input_ChangeWeapon = true;
-            //}
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Input_ChangeWeapon = true;
+            }
 
             //if (Input.GetKeyDown(KeyCode.Space))
             //{

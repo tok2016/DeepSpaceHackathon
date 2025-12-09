@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Shooter.Gameplay
@@ -9,6 +10,9 @@ namespace Shooter.Gameplay
     {
         public static FadeControl m_Current;
         public Image m_FadeImage;
+
+        [HideInInspector]
+        public bool bossKilled = false;
 
         void Awake()
         {
@@ -52,6 +56,10 @@ namespace Shooter.Gameplay
             }
 
             m_FadeImage.color = Color.black;
+            if (bossKilled)
+            {
+                SceneManager.LoadScene("EndScene");
+            }
         }
         IEnumerator Co_StartFadeIn()
         {
@@ -68,6 +76,10 @@ namespace Shooter.Gameplay
             }
 
             m_FadeImage.gameObject.SetActive(false);
+            if(bossKilled)
+            {
+                SceneManager.LoadScene("EndScene");
+            }
         }
 
     }

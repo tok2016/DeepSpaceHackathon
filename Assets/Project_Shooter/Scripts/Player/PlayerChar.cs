@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using Shooter.ScriptableObjects;
+using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Shooter.Gameplay
@@ -51,6 +54,13 @@ namespace Shooter.Gameplay
         public Weapon_Base[] m_Weapons;
         [HideInInspector]
         public int m_WeaponNum = 0;
+        [HideInInspector]
+        public bool m_ShotgunUnlocked;
+        [HideInInspector]
+        public bool m_RifleUnlocked;
+        [HideInInspector]
+        public bool m_RocketLauncherUnlocked;
+
 
         public bool m_HaveKey = false;
 
@@ -278,6 +288,11 @@ namespace Shooter.Gameplay
                 }
             }
 
+            if(PlayerControl.MainPlayerController.Input_ChangeWeapon)
+            {
+                ChangeWeapon();
+            }
+
             //animation parameters
             Vector3 vSpeed = m_Rigidbody.linearVelocity;
             vSpeed.y = 0;
@@ -431,6 +446,17 @@ namespace Shooter.Gameplay
             else if (itemType == "Weapon_Shotgun")
             {
                 SetWeapon(1);
+                m_ShotgunUnlocked = true;
+            }
+            else if (itemType == "Weapon_Rifle")
+            {
+                SetWeapon(2);
+                m_RifleUnlocked = true;
+            }
+            else if (itemType == "Weapon_RocketLauncher")
+            {
+                SetWeapon(3);
+                m_RocketLauncherUnlocked = true;
             }
             else if (itemType == "Power_Grenade")
             {
@@ -490,6 +516,45 @@ namespace Shooter.Gameplay
             //GameObject obj = Instantiate(m_HitParticlePrefab);
             //obj.transform.position = transform.position;
             //Destroy(obj, 1);
+        }
+
+        public void ChangeWeapon()
+        {
+            var nextweapon = m_WeaponNum + 1;
+            if (nextweapon >= m_Weapons.Length)
+                nextweapon = 0;
+            switch (nextweapon)
+            {
+                case 1:
+                    {
+                        if(m_ShotgunUnlocked)
+                            SetWeapon(nextweapon);
+                        else
+                            SetWeapon(0);
+                        break;
+                    }
+                case 2:
+                    {
+                        if (m_RifleUnlocked)
+                            SetWeapon(nextweapon);
+                        else
+                            SetWeapon(0);
+                        break;
+                    }
+                case 3:
+                    {
+                        if (m_RocketLauncherUnlocked)
+                            SetWeapon(nextweapon);
+                        else
+                            SetWeapon(0);
+                        break;
+                    }
+                case 0:
+                    {
+                        SetWeapon(nextweapon);
+                        break;
+                    }
+            }       
         }
     }
 }
