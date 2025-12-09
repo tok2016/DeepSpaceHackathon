@@ -272,6 +272,11 @@ namespace Shooter.Gameplay
                 }
             }
 
+            if(PlayerControl.MainPlayerController.Input_ChangeWeapon)
+            {
+                ChangeWeapon();
+            }
+
             //animation parameters
             Vector3 vSpeed = m_Rigidbody.linearVelocity;
             vSpeed.y = 0;
@@ -479,6 +484,14 @@ namespace Shooter.Gameplay
             //GameObject obj = Instantiate(m_HitParticlePrefab);
             //obj.transform.position = transform.position;
             //Destroy(obj, 1);
+        }
+
+        public void ChangeWeapon()
+        {
+            m_WeaponNum++;
+            if (m_WeaponNum >= m_Weapons.Length)
+                m_WeaponNum = 0;
+            SetWeapon(m_WeaponNum);
         }
     }
 }

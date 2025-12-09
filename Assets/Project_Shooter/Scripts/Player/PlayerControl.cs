@@ -285,10 +285,10 @@ namespace Shooter.Gameplay
             //    Input_Force = true;
             //}
 
-            //if (Input.GetKeyDown(KeyCode.Q))
-            //{
-            //    Input_ChangeWeapon = true;
-            //}
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Input_ChangeWeapon = true;
+            }
 
             //if (Input.GetKeyDown(KeyCode.Space))
             //{
