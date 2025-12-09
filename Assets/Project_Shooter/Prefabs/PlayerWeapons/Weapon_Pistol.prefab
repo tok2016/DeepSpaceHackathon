@@ -51,7 +51,7 @@ MonoBehaviour:
   BurstDelay: 0
   BurstFireCount: 0
   RecoilSpeed: 0
-  RecoilForce: 0.5
+  RecoilForce: 0.3
   InitAmmo: 80
   MaxAmmo: 80
   AddAmmo: 10

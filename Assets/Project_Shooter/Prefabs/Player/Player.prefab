@@ -11411,7 +11411,7 @@ MonoBehaviour:
   m_Weapons:
   - {fileID: 7828577479719584518}
   - {fileID: 1861931349457576133}
-  - {fileID: 1861931349457576133}
+  - {fileID: 5272796163286719241}
   - {fileID: 7450877295376352997}
   m_WeaponNum: 0
   m_HaveKey: 0
@@ -11562,11 +11562,6 @@ PrefabInstance:
       objectReference: {fileID: 4095636431773020976}
     - target: {fileID: 8301623050869786626, guid: ebe19e00e38d76f4491d14f614da683b,
         type: 3}
-      propertyPath: Input_FireHold
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8301623050869786626, guid: ebe19e00e38d76f4491d14f614da683b,
-        type: 3}
       propertyPath: m_ParticlePoint
       value: 
       objectReference: {fileID: 2001206741218196458}
@@ -11656,6 +11651,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5866218270423697246, guid: 660939ec640bae54ba7bbce79b1ad60f,
+        type: 3}
+      propertyPath: m_Owner
+      value: 
+      objectReference: {fileID: 9180820861068994198}
+    - target: {fileID: 5866218270423697246, guid: 660939ec640bae54ba7bbce79b1ad60f,
+        type: 3}
+      propertyPath: m_FirePoint
+      value: 
+      objectReference: {fileID: 4095636431773020976}
+    - target: {fileID: 5866218270423697246, guid: 660939ec640bae54ba7bbce79b1ad60f,
+        type: 3}
+      propertyPath: m_ParticlePoint
+      value: 
+      objectReference: {fileID: 2001206741218196458}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11667,6 +11677,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1748595411833953367}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5272796163286719241 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5866218270423697246, guid: 660939ec640bae54ba7bbce79b1ad60f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1748595411833953367}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5696b20a32ad32d4b9988672e4a83acc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shooter.Gameplay.PWeapon_Rifle
 --- !u!1001 &2473064848571981240
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -117,7 +117,7 @@ MonoBehaviour:
   PowerWeaponMaxAmmo: 80
   WeaponIcon: {fileID: 0}
   Damage: 5
-  ProjectileSpeed: 200
+  ProjectileSpeed: 150
   Range: 100
   InfiniteAmmo: 1
   WeaponModelPrefab: {fileID: 0}
@@ -135,6 +135,6 @@ MonoBehaviour:
   BurstDelayTimer: 0
   BurstFireCounter: 0
   RecoilTimer: 0
-  Input_FireHold: 1
+  Input_FireHold: 0
   Forward: {x: 0, y: 0, z: 0}
   m_PowerLevel: 0

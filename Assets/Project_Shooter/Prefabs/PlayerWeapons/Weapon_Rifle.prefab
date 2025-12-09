@@ -79,5 +79,62 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 3527444392576026207, guid: 975f39bd024bb824990302eff7e92d8f, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 975f39bd024bb824990302eff7e92d8f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5866218270423697246}
   m_SourcePrefab: {fileID: 100100000, guid: 975f39bd024bb824990302eff7e92d8f, type: 3}
+--- !u!1 &2773987499593610625 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 975f39bd024bb824990302eff7e92d8f,
+    type: 3}
+  m_PrefabInstance: {fileID: 3079977530550880464}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5866218270423697246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2773987499593610625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5696b20a32ad32d4b9988672e4a83acc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shooter.Gameplay.PWeapon_Rifle
+  WpnID: 0
+  Title: SMG 1
+  AutoFire: 1
+  FireDelay: 0.2
+  BurstDelay: 0.5
+  BurstFireCount: 3
+  RecoilSpeed: 5
+  RecoilForce: 0.5
+  InitAmmo: 80
+  MaxAmmo: 80
+  AddAmmo: 10
+  PowerWeaponMaxAmmo: 80
+  WeaponIcon: {fileID: 0}
+  Damage: 1
+  ProjectileSpeed: 100
+  Range: 100
+  InfiniteAmmo: 0
+  WeaponModelPrefab: {fileID: 0}
+  BulletPrefab: {fileID: 4015073885441229448, guid: e836b399a4f9c364a808babaa1a24026,
+    type: 3}
+  EffectPrefab: {fileID: 5599717751194728857, guid: 6482d0d3e53df334d8652124bc2a397e,
+    type: 3}
+  WeaponEnable: 1
+  AmmoCount: 50
+  m_FirePoint: {fileID: 0}
+  m_ParticlePoint: {fileID: 0}
+  m_Owner: {fileID: 0}
+  Owner: {fileID: 0}
+  FireDelayTimer: 0
+  BurstDelayTimer: 0
+  BurstFireCounter: 0
+  RecoilTimer: 0
+  Input_FireHold: 0
+  Forward: {x: 0, y: 0, z: 0}
+  m_PowerLevel: 0
