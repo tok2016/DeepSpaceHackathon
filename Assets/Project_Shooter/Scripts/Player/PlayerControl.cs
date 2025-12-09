@@ -232,6 +232,7 @@ namespace Shooter.Gameplay
                     GameControl.m_Current.HandlePlayerDeath();
                 }
             }
+
         }
 
         public void UpdateInputs()
@@ -252,28 +253,8 @@ namespace Shooter.Gameplay
             cameraForward.Normalize();
             Vector3 cameraRight = Helper.RotatedVector(90, cameraForward);
 
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                m_Input_Movement += cameraForward;
-            }
-            else if (Input.GetKey(KeyCode.DownArrow))
-            {
-                m_Input_Movement -= cameraForward;
-            }
-
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                m_Input_Movement -= cameraRight;
-            }
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                m_Input_Movement += cameraRight;
-            }
-
-            if (Input.GetKey(KeyCode.Z))
-            {
-                Input_FireHold = true;
-            }
+            m_Input_Movement += cameraForward * Input.GetAxisRaw("Vertical") + cameraRight * Input.GetAxisRaw("Horizontal");
+            Input_FireHold = Input.GetMouseButton(0);
 
             //if (Input.GetKey(KeyCode.X) || Input.GetMouseButton(0))
             //{
@@ -295,10 +276,10 @@ namespace Shooter.Gameplay
             //{
             //    Input_Grenade = true;
             //}
-            //if (Input.GetKeyDown(KeyCode.R))
-            //{
-            //    Input_Dash = true;
-            //}
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Input_Dash = true;
+            }
             //if (Input.GetKeyDown(KeyCode.T))
             //{
             //    Input_Force = true;
