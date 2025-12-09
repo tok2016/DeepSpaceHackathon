@@ -71,10 +71,15 @@ namespace Shooter.Gameplay
 
         public GameObject m_ShieldObject;
 
+        private Rigidbody m_Rigidbody;
+
+        public Vector3 LinearVelocity => m_Rigidbody.linearVelocity;
+
         void Awake()
         {
             m_Current = this;
             m_PlayerPowers = GetComponent<PlayerPowers>();
+            m_Rigidbody = GetComponent<Rigidbody>();
         }
 
         void Start()
@@ -110,7 +115,7 @@ namespace Shooter.Gameplay
                 //    m_Input_Fire2 = true;
                 //}
 
-                if (Input.GetKeyDown(KeyCode.Z))
+                if (Input.GetMouseButtonDown(0))
                 {
                     // m_Input_LockAim = true;
                     if (m_PlayerPowers.m_HavePower)
@@ -148,13 +153,33 @@ namespace Shooter.Gameplay
 
                 m_MovementInput = PlayerControl.MainPlayerController.m_Input_Movement;
 
-                //if (Input.GetMouseButtonDown(1))
-                //{
-                //    StartDash();
-                //}
+                if (PlayerControl.MainPlayerController.Input_Dash)
+                {
+                    StartDash();
+                }
 
                 Vector3 axis = Vector3.Cross(Vector3.up, m_MovementInput);
                 Quaternion newRotation = Quaternion.AngleAxis(20, axis);
+
+                Vector3 mouseScreenPosition = Input.mousePosition;
+
+                Ray ray = Camera.main.ScreenPointToRay(mouseScreenPosition);
+                RaycastHit hit;
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    Vector3 targetPosition = hit.point;
+                    Vector3 direction = targetPosition - transform.position;
+
+                    direction.y = 0f;
+
+                    if (direction != Vector3.zero)
+                    {
+                        Quaternion targetRotation = Quaternion.LookRotation(direction);
+                        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10);
+                    }
+                }
+
 
                 //find target
                 List<TargetObject> targets = TargetsControl.m_Main.m_Targets;
@@ -219,13 +244,17 @@ namespace Shooter.Gameplay
                 //else
                 //{
                 //m_LockedTarget = null;
-                if (m_MovementInput != Vector3.zero)
-                {
-                    Vector3 faceDirection = m_MovementInput;
-                    faceDirection.y = 0;
-                    faceDirection.Normalize();
-                    m_TurnBase.rotation = Quaternion.Lerp(m_TurnBase.rotation, Quaternion.LookRotation(faceDirection), 10 * Time.deltaTime);
-                }
+                //if (m_MovementInput != Vector3.zero)
+                //{
+                //    Vector3 faceDirection = m_MovementInput;
+                //    faceDirection.y = 0;
+                //    faceDirection.Normalize();
+
+                //    Vector3 mousePos = new Vector3(Input.mousePosition.y, 0, Input.mousePosition.x);
+                //    mousePos.Normalize();
+                //    Debug.Log(mousePos);
+                //    m_TurnBase.rotation = Quaternion.Lerp(m_TurnBase.rotation, Quaternion.LookRotation(mousePos), 10 * Time.deltaTime);
+                //}
                 //}
 
                 m_Weapons[m_WeaponNum].Input_FireHold = m_Input_Fire;
@@ -243,8 +272,13 @@ namespace Shooter.Gameplay
                 }
             }
 
+            if(PlayerControl.MainPlayerController.Input_ChangeWeapon)
+            {
+                ChangeWeapon();
+            }
+
             //animation parameters
-            Vector3 vSpeed = GetComponent<Rigidbody>().linearVelocity;
+            Vector3 vSpeed = m_Rigidbody.linearVelocity;
             vSpeed.y = 0;
             float runSpeed = Mathf.Clamp(vSpeed.magnitude / 10f, 0, 1);
             m_Animator.SetFloat("RunSpeed", runSpeed);
@@ -269,22 +303,20 @@ namespace Shooter.Gameplay
 
         void FixedUpdate()
         {
-            Rigidbody rigidBody = GetComponent<Rigidbody>();
-
-            Vector3 totalVelocity = rigidBody.linearVelocity;
+            Vector3 totalVelocity = m_Rigidbody.linearVelocity;
             if (m_MovementInput != Vector3.zero)
             {
                 totalVelocity += 5 * m_MovementInput;
                 totalVelocity.y = 0;
                 totalVelocity = Vector3.ClampMagnitude(totalVelocity, 11);
-                totalVelocity.y = rigidBody.linearVelocity.y;
-                rigidBody.linearVelocity = totalVelocity;
+                totalVelocity.y = m_Rigidbody.linearVelocity.y;
+                m_Rigidbody.linearVelocity = totalVelocity;
             }
             else
             {
                 totalVelocity -= .4f * totalVelocity;
-                totalVelocity.y = rigidBody.linearVelocity.y;
-                rigidBody.linearVelocity = totalVelocity;
+                totalVelocity.y = m_Rigidbody.linearVelocity.y;
+                m_Rigidbody.linearVelocity = totalVelocity;
             }
 
         }
@@ -396,6 +428,10 @@ namespace Shooter.Gameplay
             {
                 SetWeapon(1);
             }
+            else if (itemType == "Weapon_RocketLauncher")
+            {
+                SetWeapon(2);
+            }
             else if (itemType == "Power_Grenade")
             {
                 m_PlayerPowers.SetNewPower(0);
@@ -412,7 +448,8 @@ namespace Shooter.Gameplay
 
         public void StartDash()
         {
-            m_DashDirection = m_MovementInput;
+            m_DashDirection = m_Rigidbody.linearVelocity;
+            m_DashDirection.Normalize();
             if (m_DashDirection != Vector3.zero)
             {
                 StartCoroutine(Co_Dash());
@@ -428,7 +465,7 @@ namespace Shooter.Gameplay
 
             GetComponent<Collider>().enabled = false;
             m_Animator.SetBool("Dashing", true);
-            GetComponent<Rigidbody>().isKinematic = true;
+            m_Rigidbody.isKinematic = true;
             float lerp = 0;
             Vector3 startPos = transform.position;
             Vector3 endPos = transform.position + 6 * m_DashDirection;
@@ -440,7 +477,7 @@ namespace Shooter.Gameplay
             }
 
             transform.position = endPos;
-            GetComponent<Rigidbody>().isKinematic = false;
+            m_Rigidbody.isKinematic = false;
             m_DashDirection = Vector3.zero;
             m_Animator.SetBool("Dashing", false);
             GetComponent<Collider>().enabled = true;
@@ -451,6 +488,14 @@ namespace Shooter.Gameplay
             //GameObject obj = Instantiate(m_HitParticlePrefab);
             //obj.transform.position = transform.position;
             //Destroy(obj, 1);
+        }
+
+        public void ChangeWeapon()
+        {
+            m_WeaponNum++;
+            if (m_WeaponNum >= m_Weapons.Length)
+                m_WeaponNum = 0;
+            SetWeapon(m_WeaponNum);
         }
     }
 }

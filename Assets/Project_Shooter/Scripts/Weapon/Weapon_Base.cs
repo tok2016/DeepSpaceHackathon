@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.MemoryProfiler;
 using UnityEngine;
 using UnityEngine.UI;
 namespace Shooter.Gameplay
@@ -14,6 +15,7 @@ namespace Shooter.Gameplay
         public float BurstDelay = .5f;
         public int BurstFireCount = 3;
         public float RecoilSpeed = 5;
+        public float RecoilForce = 0.1f;
         [Space]
         public int InitAmmo = 80;
         public int MaxAmmo = 80;
@@ -142,8 +144,12 @@ namespace Shooter.Gameplay
             obj.transform.position = m_FirePoint.position;
             obj.transform.forward = m_FirePoint.forward;
             Destroy(obj, 3);
-
             //m_Contents.CreateNoise(MyCharacter.WeaponFirePoint.position, 10, 1);
+        }
+        
+        public virtual void Recoil(GameObject owner)
+        {   
+            owner.transform.position -= m_FirePoint.transform.forward * RecoilForce;
         }
     }
 }
