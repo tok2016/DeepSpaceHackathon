@@ -28,7 +28,7 @@ namespace Shooter.UI
         public Text m_PowerNameText;
         public Text m_PowerAmountText;
 
-        public string[] m_WeaponNames = new string[4] { "PISTOL", "SHOTGUN", "MACHINGUN", "PLASMA GUN" };
+        public string[] m_WeaponNames = new string[4] { "PISTOL", "SHOTGUN", "RIFLE", "ROCKET LAUNCHER" };
 
         public static UI_HUD m_Main;
 

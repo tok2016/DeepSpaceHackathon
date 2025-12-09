@@ -3,6 +3,7 @@ namespace Shooter.Gameplay
 {
     public class PWeapon_Rifle : Weapon_Base
     {
+        private int BurstCount = 0;
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
@@ -46,9 +47,14 @@ namespace Shooter.Gameplay
                     {
                         FireWeapon();
                         BurstDelayTimer = BurstDelay;
+                        BurstCount++;
                     }
-                    FireDelayTimer = FireDelay;
-                    RecoilTimer = 1f;
+                    if(BurstCount == 3 + m_PowerLevel*3)
+                    {
+                        FireDelayTimer = FireDelay;
+                        RecoilTimer = 1f;
+                        BurstCount = 0;
+                    }
                 }
 
             }
