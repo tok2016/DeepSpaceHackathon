@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,6 +35,9 @@ namespace Shooter.Gameplay
         public Vector3 m_CameraBottomPosition;
         [HideInInspector]
         public Vector3 m_CameraTopPosition;
+
+        [SerializeField]
+        private float distanceFromPLayer = 8;
 
         Vector3 Direction;
         // Start is called before the first frame update
@@ -75,11 +79,8 @@ namespace Shooter.Gameplay
             float shakeCos = Mathf.Sin(50 * Time.time) * Mathf.Clamp(m_ShakeTimer, 0, 0.5f);
             ShakeOffset = new Vector3(m_ShakeRadius * shakeCos, m_ShakeRadius * shakeSin, 0);
 
-            
-            if (PlayerControl.MainPlayerController.MyPlayerChar.transform.position.z+8>m_MinZ)
-            {
-                m_MinZ = PlayerControl.MainPlayerController.MyPlayerChar.transform.position.z+8;
-            }
+            float direction = distanceFromPLayer * (float)Math.Round(Mathf.Cos(PlayerChar.m_Current.transform.eulerAngles.y * Mathf.Deg2Rad), 2);
+            m_MinZ = PlayerControl.MainPlayerController.MyPlayerChar.transform.position.z+ direction;
 
             float distance = 80;
             Direction = Quaternion.Euler(40, 0, 0) * Vector3.forward;
