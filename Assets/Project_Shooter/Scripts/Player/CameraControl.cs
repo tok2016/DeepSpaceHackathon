@@ -61,7 +61,6 @@ namespace Shooter.Gameplay
             Direction = Quaternion.Euler(40, 0, 0) * Vector3.forward;
             Vector3 targetPosition = PlayerChar.m_Current.transform.position;
             targetPosition.z = m_MinZ;
-            targetPosition.x = 0.4f * targetPosition.x;
             transform.position =  targetPosition + -distance * Direction;// - distance// * m_FaceVector;
             transform.forward =  Direction;
         }
@@ -86,7 +85,7 @@ namespace Shooter.Gameplay
             Direction = Quaternion.Euler(40, 0, 0) * Vector3.forward;
             Vector3 targetPosition = PlayerChar.m_Current.transform.position;
             targetPosition.z = m_MinZ;
-            targetPosition.x = 0.4f * targetPosition.x;
+            
 
             if (m_BossTarget!=null)
             {
