@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &965024411965649525
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 96f78cc8f4714694db873632c6694f36,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.510273
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 96f78cc8f4714694db873632c6694f36,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.013985379
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 96f78cc8f4714694db873632c6694f36,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 174.62291
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 96f78cc8f4714694db873632c6694f36,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 96f78cc8f4714694db873632c6694f36,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 96f78cc8f4714694db873632c6694f36,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 96f78cc8f4714694db873632c6694f36,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 96f78cc8f4714694db873632c6694f36,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 96f78cc8f4714694db873632c6694f36,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 96f78cc8f4714694db873632c6694f36,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 96f78cc8f4714694db873632c6694f36,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a131e90810c000f4cbd346c10046e38b, type: 2}
+    - target: {fileID: -2156714777181336143, guid: 96f78cc8f4714694db873632c6694f36,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a131e90810c000f4cbd346c10046e38b, type: 2}
+    - target: {fileID: 919132149155446097, guid: 96f78cc8f4714694db873632c6694f36,
+        type: 3}
+      propertyPath: m_Name
+      value: Weapon_RocketLauncher
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -7511558181221131132, guid: 96f78cc8f4714694db873632c6694f36, type: 3}
+    - {fileID: -5754084199372789682, guid: 96f78cc8f4714694db873632c6694f36, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: -1026621997567693601, guid: 96f78cc8f4714694db873632c6694f36, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 96f78cc8f4714694db873632c6694f36,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8301623050869786626}
+  m_SourcePrefab: {fileID: 100100000, guid: 96f78cc8f4714694db873632c6694f36, type: 3}
+--- !u!1 &118533156491480868 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 96f78cc8f4714694db873632c6694f36,
+    type: 3}
+  m_PrefabInstance: {fileID: 965024411965649525}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8301623050869786626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 118533156491480868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d2cf954ed2b1d64d969ef88b48b4198, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shooter.Gameplay.PWeapon_RocketLauncher
+  WpnID: 0
+  Title: SMG 1
+  AutoFire: 0
+  FireDelay: 1
+  BurstDelay: 0.5
+  BurstFireCount: 3
+  RecoilSpeed: 5
+  RecoilForce: 2
+  InitAmmo: 80
+  MaxAmmo: 80
+  AddAmmo: 10
+  PowerWeaponMaxAmmo: 80
+  WeaponIcon: {fileID: 0}
+  Damage: 5
+  ProjectileSpeed: 200
+  Range: 100
+  InfiniteAmmo: 1
+  WeaponModelPrefab: {fileID: 0}
+  BulletPrefab: {fileID: 4015073885441229448, guid: e4281bef688dac8489315769f3e4251b,
+    type: 3}
+  EffectPrefab: {fileID: 5599717751194728857, guid: 6482d0d3e53df334d8652124bc2a397e,
+    type: 3}
+  WeaponEnable: 1
+  AmmoCount: 50
+  m_FirePoint: {fileID: 0}
+  m_ParticlePoint: {fileID: 0}
+  m_Owner: {fileID: 0}
+  Owner: {fileID: 0}
+  FireDelayTimer: 0
+  BurstDelayTimer: 0
+  BurstFireCounter: 0
+  RecoilTimer: 0
+  Input_FireHold: 1
+  Forward: {x: 0, y: 0, z: 0}
+  m_PowerLevel: 0

@@ -428,6 +428,10 @@ namespace Shooter.Gameplay
             {
                 SetWeapon(1);
             }
+            else if (itemType == "Weapon_RocketLauncher")
+            {
+                SetWeapon(2);
+            }
             else if (itemType == "Power_Grenade")
             {
                 m_PlayerPowers.SetNewPower(0);
