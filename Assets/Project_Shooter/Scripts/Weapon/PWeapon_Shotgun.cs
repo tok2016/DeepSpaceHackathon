@@ -89,6 +89,7 @@ namespace Shooter.Gameplay
             obj.transform.localPosition = Vector3.zero;
             obj.transform.forward = m_ParticlePoint.forward;
             Destroy(obj, 3);
+            Recoil(m_Owner);
         }
     }
 }
