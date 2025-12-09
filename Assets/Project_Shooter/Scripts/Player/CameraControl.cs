@@ -14,7 +14,7 @@ namespace Shooter.Gameplay
         private float m_ShakeRadius = 1;
 
         public float m_MinZ = 0;
-
+        public float m_MinX = 0;
 
         [HideInInspector]
         public Transform m_Target;
@@ -37,7 +37,7 @@ namespace Shooter.Gameplay
         public Vector3 m_CameraTopPosition;
 
         [SerializeField]
-        private float distanceFromPLayer = 8;
+        private float distanceFromPLayer = 0.7f;
 
         Vector3 Direction;
         // Start is called before the first frame update
@@ -54,6 +54,7 @@ namespace Shooter.Gameplay
             //Player p = m_Target.gameObject.GetComponent<Player>();
             //    p.m_MyCamera = this;
             m_MinZ = PlayerChar.m_Current.transform.position.z + 10;
+            m_MinX = PlayerChar.m_Current.transform.position.x + 10;
             m_CameraBottomPosition = new Vector3(0, 0, -100);
             m_CameraTopPosition = new Vector3(0, 0, -100);
 
@@ -79,14 +80,20 @@ namespace Shooter.Gameplay
             float shakeCos = Mathf.Sin(50 * Time.time) * Mathf.Clamp(m_ShakeTimer, 0, 0.5f);
             ShakeOffset = new Vector3(m_ShakeRadius * shakeCos, m_ShakeRadius * shakeSin, 0);
 
-            float direction = distanceFromPLayer * (float)Math.Round(Mathf.Cos(PlayerChar.m_Current.transform.eulerAngles.y * Mathf.Deg2Rad), 2);
-            m_MinZ = PlayerControl.MainPlayerController.MyPlayerChar.transform.position.z+ direction;
+            float directionZ = Mathf.Abs(PlayerChar.m_Current.LinearVelocity.z) 
+                * distanceFromPLayer 
+                * (float)Math.Round(Mathf.Cos(PlayerChar.m_Current.transform.eulerAngles.y * Mathf.Deg2Rad), 2);
+            m_MinZ = PlayerControl.MainPlayerController.MyPlayerChar.transform.position.z+ directionZ;
+
+            //float directionX = Mathf.Abs(PlayerChar.m_Current.LinearVelocity.x)
+            //    * distanceFromPLayer
+            //    * (float)Math.Round(Mathf.Sin(PlayerChar.m_Current.transform.eulerAngles.y * Mathf.Deg2Rad), 2);
+            //m_MinX = PlayerControl.MainPlayerController.MyPlayerChar.transform.position.x + directionX;
 
             float distance = 80;
             Direction = Quaternion.Euler(40, 0, 0) * Vector3.forward;
             Vector3 targetPosition = PlayerChar.m_Current.transform.position;
             targetPosition.z = m_MinZ;
-            targetPosition.x = 0.4f * targetPosition.x;
 
             if (m_BossTarget!=null)
             {

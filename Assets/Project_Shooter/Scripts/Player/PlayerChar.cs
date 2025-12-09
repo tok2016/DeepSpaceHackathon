@@ -72,6 +72,13 @@ namespace Shooter.Gameplay
         public GameObject m_ShieldObject;
 
         private Rigidbody m_Rigidbody;
+        private Collider m_Collider;
+
+        [SerializeField]
+        private float m_InvinsibiltyAfterDash = .5f;
+        [SerializeField]
+        private float m_DashCooltime = 1f;
+        private float dashCooltimer;
 
         public Vector3 LinearVelocity => m_Rigidbody.linearVelocity;
 
@@ -80,6 +87,7 @@ namespace Shooter.Gameplay
             m_Current = this;
             m_PlayerPowers = GetComponent<PlayerPowers>();
             m_Rigidbody = GetComponent<Rigidbody>();
+            m_Collider = GetComponent<Collider>();
         }
 
         void Start()
@@ -153,12 +161,10 @@ namespace Shooter.Gameplay
 
                 m_MovementInput = PlayerControl.MainPlayerController.m_Input_Movement;
 
-                if (PlayerControl.MainPlayerController.Input_Dash)
-                {
-                    StartDash();
-                }
+                    if (PlayerControl.MainPlayerController.Input_Dash && dashCooltimer <= 0)
+                        StartDash();
 
-                Vector3 axis = Vector3.Cross(Vector3.up, m_MovementInput);
+                        Vector3 axis = Vector3.Cross(Vector3.up, m_MovementInput);
                 Quaternion newRotation = Quaternion.AngleAxis(20, axis);
 
                 Vector3 mouseScreenPosition = Input.mousePosition;
@@ -280,6 +286,9 @@ namespace Shooter.Gameplay
 
             //shield
             m_ShieldObject.transform.position = transform.position + new Vector3(0, 1, 0);
+
+            if(dashCooltimer > 0)
+                dashCooltimer -= Time.deltaTime;
 
             if (!m_IsDead)
             {
@@ -439,12 +448,12 @@ namespace Shooter.Gameplay
 
         public void StartDash()
         {
+            dashCooltimer = m_DashCooltime;
             m_DashDirection = m_Rigidbody.linearVelocity;
+            m_DashDirection.y = 0;
             m_DashDirection.Normalize();
             if (m_DashDirection != Vector3.zero)
-            {
                 StartCoroutine(Co_Dash());
-            }
         }
 
         IEnumerator Co_Dash()
@@ -454,9 +463,9 @@ namespace Shooter.Gameplay
             obj.transform.forward = m_DashDirection;
             Destroy(obj, 3);
 
-            GetComponent<Collider>().enabled = false;
+            m_Collider.enabled = false;
             m_Animator.SetBool("Dashing", true);
-            m_Rigidbody.isKinematic = true;
+            m_Rigidbody.useGravity = false;
             float lerp = 0;
             Vector3 startPos = transform.position;
             Vector3 endPos = transform.position + 6 * m_DashDirection;
@@ -468,10 +477,12 @@ namespace Shooter.Gameplay
             }
 
             transform.position = endPos;
-            m_Rigidbody.isKinematic = false;
-            m_DashDirection = Vector3.zero;
             m_Animator.SetBool("Dashing", false);
-            GetComponent<Collider>().enabled = true;
+
+            yield return new WaitForSeconds(m_InvinsibiltyAfterDash);
+            m_Rigidbody.useGravity = true;
+            m_DashDirection = Vector3.zero;
+            m_Collider.enabled = true;
         }
         public void Hit()
         {

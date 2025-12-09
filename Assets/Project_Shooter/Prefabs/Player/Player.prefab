@@ -11420,6 +11420,8 @@ MonoBehaviour:
     type: 3}
   m_PlayerPowers: {fileID: 0}
   m_ShieldObject: {fileID: 7055559785765243090}
+  m_InvinsibiltyAfterDash: 0.5
+  m_DashCooltime: 1
 --- !u!114 &6243425237513417537
 MonoBehaviour:
   m_ObjectHideFlags: 0
