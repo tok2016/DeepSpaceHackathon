@@ -4,16 +4,21 @@ using UnityEngine;
 public class HomingMine : MonoBehaviour
 {
     [SerializeField]
-    private float m_Danage = 2;
+    private float m_Damage = 2;
     [SerializeField]
     private float m_Speed = 1.5f;
     [SerializeField]
     private float m_ChasingRadius = 4;
+    [SerializeField]
+    private float m_ExplosionRadius = 6;
 
     [SerializeField]
     private GameObject m_Explosion;
 
     private DamageControl m_DamageControl;
+
+    [SerializeField]
+    LayerMask m_LayersToDetect;
 
     private void Awake()
     {
@@ -29,11 +34,16 @@ public class HomingMine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(m_DamageControl.IsDead)
+        if (m_DamageControl.IsDead || Physics.OverlapSphere(transform.position, transform.localScale.y, m_LayersToDetect).Length > 0)
             Explode();
-        
+
+        Chase();
+    }
+
+    private void Chase()
+    {
         Vector3 vectorToPlayer = PlayerChar.m_Current.transform.position - transform.position;
-        if(vectorToPlayer.magnitude <= m_ChasingRadius)
+        if (vectorToPlayer.magnitude <= m_ChasingRadius)
         {
             vectorToPlayer.y = 0;
             vectorToPlayer.Normalize();
@@ -47,17 +57,28 @@ public class HomingMine : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, m_ChasingRadius);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            PlayerChar.m_Current.gameObject.GetComponent<DamageControl>()?.ApplyDamage(m_Danage, transform.forward, 1);
-            Explode();
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    DamageControl damageControl = other.GetComponent<DamageControl>();
+    //    if (damageControl != null)
+    //    {
+    //        damageControl.ApplyDamage(m_Damage, transform.forward, 1);
+    //        Explode();
+    //    }
+    //}
 
     private void Explode()
     {
+        Collider[] hits = Physics.OverlapSphere(transform.position, m_ExplosionRadius);
+        foreach (Collider col in hits)
+        {
+            if (col.gameObject.name == gameObject.name) continue;
+
+            DamageControl damageControl = col.GetComponent<DamageControl>();
+            if (damageControl != null)
+                damageControl.ApplyDamage(m_Damage, transform.forward, 1);
+        }
+
         Instantiate(m_Explosion, transform.position, transform.rotation);
         Destroy(gameObject);
     }
