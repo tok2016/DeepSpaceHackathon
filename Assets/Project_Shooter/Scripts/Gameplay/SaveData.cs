@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using Shooter.Gameplay;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using YG;
 
@@ -14,6 +17,7 @@ namespace Shooter.ScriptableObjects
 
         public void Save()
         {
+            var player = FindFirstObjectByType<PlayerChar>();
             PlayerPrefs.SetInt("m_CheckpointNumber", m_CheckpointNumber);
             PlayerPrefs.SetInt("m_GemCount", m_GemCount);
             PlayerPrefs.Save();
