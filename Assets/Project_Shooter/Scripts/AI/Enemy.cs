@@ -92,7 +92,7 @@ namespace Shooter.Gameplay
                 Destroy(gameObject);
             }
 
-            if (transform.position.z<CameraControl.m_Current.m_CameraBottomPosition.z-5)
+            if (CameraControl.m_Current.m_BossTarget && transform.position.z < CameraControl.m_Current.m_CameraBottomPosition.z - 5)
             {
                 Destroy(gameObject);
             }

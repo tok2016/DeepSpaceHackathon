@@ -77,6 +77,8 @@ namespace Shooter.Gameplay
         [HideInInspector]
         public bool Input_FireHold = false;
         [HideInInspector]
+        public bool Input_FireDown = false;
+        [HideInInspector]
         public bool Input_HoldAim = false;
         [HideInInspector]
         public bool Input_Grenade = false;
@@ -255,6 +257,7 @@ namespace Shooter.Gameplay
 
             m_Input_Movement += cameraForward * Input.GetAxisRaw("Vertical") + cameraRight * Input.GetAxisRaw("Horizontal");
             Input_FireHold = Input.GetMouseButton(0);
+            Input_FireDown = Input.GetMouseButtonDown(0);
 
             //if (Input.GetKey(KeyCode.X) || Input.GetMouseButton(0))
             //{

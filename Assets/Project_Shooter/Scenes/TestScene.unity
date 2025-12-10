@@ -42052,6 +42052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MinZ: 0
+  m_MinX: 0
   m_Target: {fileID: 0}
   m_TargetPoint: {x: 0, y: 0, z: 0}
   m_TargetPointTransform: {fileID: 681161749}
@@ -42060,7 +42061,7 @@ MonoBehaviour:
   m_BackBlock: {fileID: 231541865}
   m_CameraBottomPosition: {x: 0, y: 0, z: 0}
   m_CameraTopPosition: {x: 0, y: 0, z: 0}
-  distanceFromPLayer: 8
+  distanceFromPLayer: 1
 --- !u!114 &876020987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44864,6 +44865,7 @@ MonoBehaviour:
   m_CameraAngle: {x: 0, y: 0}
   Input_Fire: 0
   Input_FireHold: 0
+  Input_FireDown: 0
   Input_HoldAim: 0
   Input_Grenade: 0
   Input_Force: 0

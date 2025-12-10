@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.MemoryProfiler;
+﻿
 using UnityEngine;
-using UnityEngine.UI;
+
 namespace Shooter.Gameplay
 {
     public class Weapon_Base : MonoBehaviour
@@ -59,14 +57,24 @@ namespace Shooter.Gameplay
         [HideInInspector]
         public bool Input_FireHold = false;
         [HideInInspector]
+        public bool Input_FireDown = false;
+        public bool HoldToFire= true;
+        [HideInInspector]
         public Vector3 Forward;
 
         [HideInInspector]
         public int m_PowerLevel = 0;
 
+        protected AudioSource audioSource;
+
         //[SerializeField, Space]
         //private Content m_Contents;
         // Use this for initialization
+        private void Awake()
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+
         void Start()
         {
 
@@ -89,7 +97,7 @@ namespace Shooter.Gameplay
             if (RecoilTimer <= 0)
                 RecoilTimer = 0;
 
-            if (Input_FireHold)
+            if (HoldToFire ? Input_FireHold : Input_FireDown)
             {
                 if (FireDelayTimer == 0)
                 {
@@ -139,6 +147,8 @@ namespace Shooter.Gameplay
                 proj.Damage = Damage;
                 Destroy(obj, 5);
             }
+
+            audioSource?.Play();
 
             obj = Instantiate(EffectPrefab);
             obj.transform.position = m_FirePoint.position;

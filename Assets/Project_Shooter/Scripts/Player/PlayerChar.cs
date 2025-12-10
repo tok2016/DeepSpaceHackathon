@@ -89,6 +89,9 @@ namespace Shooter.Gameplay
         [SerializeField]
         private float m_DashCooltime = 1f;
         private float dashCooltimer;
+        
+        private AudioSource m_AudioSource;
+        [SerializeField] private AudioClip m_DamageClip, m_DashClip;
 
         public Vector3 LinearVelocity => m_Rigidbody.linearVelocity;
 
@@ -98,6 +101,7 @@ namespace Shooter.Gameplay
             m_PlayerPowers = GetComponent<PlayerPowers>();
             m_Rigidbody = GetComponent<Rigidbody>();
             m_Collider = GetComponent<Collider>();
+            m_AudioSource = GetComponent<AudioSource>();
         }
 
         void Start()
@@ -342,7 +346,8 @@ namespace Shooter.Gameplay
 
         public void HandleDamage()
         {
-
+            m_AudioSource.clip = m_DamageClip;
+            m_AudioSource.Play();
             CameraControl.m_Current.StartShake(.2f, .1f);
         }
 
@@ -484,6 +489,9 @@ namespace Shooter.Gameplay
 
         IEnumerator Co_Dash()
         {
+            m_AudioSource.clip = m_DashClip;
+            m_AudioSource.Play();
+
             GameObject obj = Instantiate(m_DashParticle);
             obj.transform.position = transform.position + new Vector3(0, 1, 0);
             obj.transform.forward = m_DashDirection;

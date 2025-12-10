@@ -1,8 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 namespace Shooter.Gameplay
 {
     public class Boss_A : Enemy
@@ -258,8 +255,11 @@ namespace Shooter.Gameplay
         private void OnDestroy()
         {
             var fadeScreen = FindFirstObjectByType<FadeControl>();
-            fadeScreen.bossKilled = true;
-            fadeScreen.StartFadeOut();
+            if (fadeScreen != null)
+            {
+                fadeScreen.bossKilled = true;
+                fadeScreen.StartFadeOut();
+            }
         }
     }
 }

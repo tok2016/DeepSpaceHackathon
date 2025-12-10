@@ -39,7 +39,7 @@ namespace Shooter.Gameplay
             if (RecoilTimer <= 0)
                 RecoilTimer = 0;
 
-            if (Input_FireHold)
+            if (HoldToFire ? Input_FireHold : Input_FireDown)
             {
                 if (FireDelayTimer == 0)
                 {
@@ -64,6 +64,7 @@ namespace Shooter.Gameplay
         {
 
             GameObject obj;
+            audioSource?.Play();
 
             obj = Instantiate(BulletPrefab);
             obj.transform.position = m_FirePoint.position;
