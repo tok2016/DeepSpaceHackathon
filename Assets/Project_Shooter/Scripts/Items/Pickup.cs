@@ -17,6 +17,7 @@ namespace Shooter.Gameplay
         public int m_ItemCount = 1;
 
         public bool m_CanPick = false;
+
         // Start is called before the first frame update
         void Start()
         {

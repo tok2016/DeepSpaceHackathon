@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 namespace Shooter.Gameplay
 {
@@ -250,6 +249,16 @@ namespace Shooter.Gameplay
                 obj1.transform.position = transform.position;
                 Vector3 v = Helper.RotatedLenght(i * 18, 15) + new Vector3(0, 20, 0);
                 obj1.GetComponent<Rigidbody>().linearVelocity = v;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            var fadeScreen = FindFirstObjectByType<FadeControl>();
+            if (fadeScreen != null)
+            {
+                fadeScreen.bossKilled = true;
+                fadeScreen.StartFadeOut();
             }
         }
     }

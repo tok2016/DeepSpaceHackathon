@@ -15,7 +15,15 @@ namespace Shooter.Gameplay
         public GameObject m_LidObject;
         public Transform m_LidTransform;
 
+        private AudioSource audioSource;
+
         bool m_Opened = false;
+
+        private void Awake()
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+
         // Start is called before the first frame update
         void Start()
         {
@@ -46,6 +54,8 @@ namespace Shooter.Gameplay
 
         IEnumerator Co_OpenChest()
         {
+            audioSource?.Play();
+
             m_Opened = true;
             GameObject obj = Instantiate(m_ExplodeParticle);
             obj.transform.position = transform.position;

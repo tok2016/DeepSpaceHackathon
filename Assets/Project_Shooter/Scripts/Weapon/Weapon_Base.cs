@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
-using UnityEngine.UI;
+
 namespace Shooter.Gameplay
 {
     public class Weapon_Base : MonoBehaviour
@@ -14,6 +13,7 @@ namespace Shooter.Gameplay
         public float BurstDelay = .5f;
         public int BurstFireCount = 3;
         public float RecoilSpeed = 5;
+        public float RecoilForce = 0.1f;
         [Space]
         public int InitAmmo = 80;
         public int MaxAmmo = 80;
@@ -57,14 +57,24 @@ namespace Shooter.Gameplay
         [HideInInspector]
         public bool Input_FireHold = false;
         [HideInInspector]
+        public bool Input_FireDown = false;
+        public bool HoldToFire= true;
+        [HideInInspector]
         public Vector3 Forward;
 
         [HideInInspector]
         public int m_PowerLevel = 0;
 
+        protected AudioSource audioSource;
+
         //[SerializeField, Space]
         //private Content m_Contents;
         // Use this for initialization
+        private void Awake()
+        {
+            audioSource = GetComponent<AudioSource>();
+        }
+
         void Start()
         {
 
@@ -87,7 +97,7 @@ namespace Shooter.Gameplay
             if (RecoilTimer <= 0)
                 RecoilTimer = 0;
 
-            if (Input_FireHold)
+            if (HoldToFire ? Input_FireHold : Input_FireDown)
             {
                 if (FireDelayTimer == 0)
                 {
@@ -138,12 +148,18 @@ namespace Shooter.Gameplay
                 Destroy(obj, 5);
             }
 
+            audioSource?.Play();
+
             obj = Instantiate(EffectPrefab);
             obj.transform.position = m_FirePoint.position;
             obj.transform.forward = m_FirePoint.forward;
             Destroy(obj, 3);
-
             //m_Contents.CreateNoise(MyCharacter.WeaponFirePoint.position, 10, 1);
+        }
+        
+        public virtual void Recoil(GameObject owner)
+        {   
+            owner.transform.position -= m_FirePoint.transform.forward * RecoilForce;
         }
     }
 }

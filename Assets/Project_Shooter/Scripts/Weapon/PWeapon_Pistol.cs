@@ -32,11 +32,10 @@ namespace Shooter.Gameplay
             if (RecoilTimer <= 0)
                 RecoilTimer = 0;
 
-            if (Input_FireHold)
+            if (HoldToFire ? Input_FireHold : Input_FireDown)
             {
                 if (FireDelayTimer == 0)
                 {
-
                     FireWeapon();
                     FireDelayTimer = FireDelay;
                     RecoilTimer = 1f;
@@ -51,6 +50,8 @@ namespace Shooter.Gameplay
         {
 
             GameObject obj;
+
+            audioSource?.Play();
 
             if (m_PowerLevel == 0)
             {
@@ -86,6 +87,7 @@ namespace Shooter.Gameplay
             obj.transform.localPosition = Vector3.zero;
             obj.transform.forward = m_ParticlePoint.forward;
             Destroy(obj, 3);
+            Recoil(m_Owner);
         }
     }
 }

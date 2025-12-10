@@ -77,6 +77,8 @@ namespace Shooter.Gameplay
         [HideInInspector]
         public bool Input_FireHold = false;
         [HideInInspector]
+        public bool Input_FireDown = false;
+        [HideInInspector]
         public bool Input_HoldAim = false;
         [HideInInspector]
         public bool Input_Grenade = false;
@@ -122,7 +124,7 @@ namespace Shooter.Gameplay
             InputEnable = true;
             //Cursor.lockState = CursorLockMode.Locked;
 
-            MainWeapons = new Weapon_Base[2];
+            MainWeapons = new Weapon_Base[4];
 
 
             //if (m_DataStorage.Level_Weapons[0] != -1)
@@ -232,6 +234,7 @@ namespace Shooter.Gameplay
                     GameControl.m_Current.HandlePlayerDeath();
                 }
             }
+
         }
 
         public void UpdateInputs()
@@ -252,28 +255,9 @@ namespace Shooter.Gameplay
             cameraForward.Normalize();
             Vector3 cameraRight = Helper.RotatedVector(90, cameraForward);
 
-            if (Input.GetKey(KeyCode.UpArrow))
-            {
-                m_Input_Movement += cameraForward;
-            }
-            else if (Input.GetKey(KeyCode.DownArrow))
-            {
-                m_Input_Movement -= cameraForward;
-            }
-
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                m_Input_Movement -= cameraRight;
-            }
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                m_Input_Movement += cameraRight;
-            }
-
-            if (Input.GetKey(KeyCode.Z))
-            {
-                Input_FireHold = true;
-            }
+            m_Input_Movement += cameraForward * Input.GetAxisRaw("Vertical") + cameraRight * Input.GetAxisRaw("Horizontal");
+            Input_FireHold = Input.GetMouseButton(0);
+            Input_FireDown = Input.GetMouseButtonDown(0);
 
             //if (Input.GetKey(KeyCode.X) || Input.GetMouseButton(0))
             //{
@@ -295,19 +279,19 @@ namespace Shooter.Gameplay
             //{
             //    Input_Grenade = true;
             //}
-            //if (Input.GetKeyDown(KeyCode.R))
-            //{
-            //    Input_Dash = true;
-            //}
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Input_Dash = true;
+            }
             //if (Input.GetKeyDown(KeyCode.T))
             //{
             //    Input_Force = true;
             //}
 
-            //if (Input.GetKeyDown(KeyCode.Q))
-            //{
-            //    Input_ChangeWeapon = true;
-            //}
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Input_ChangeWeapon = true;
+            }
 
             //if (Input.GetKeyDown(KeyCode.Space))
             //{

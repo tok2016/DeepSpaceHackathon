@@ -1,0 +1,67 @@
+using UnityEngine;
+namespace Shooter.Gameplay
+{
+    public class PWeapon_RocketLauncher : Weapon_Base
+    {
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (m_PowerLevel == 0)
+            {
+                FireDelay = 1f;
+            }
+            else if (m_PowerLevel == 1)
+            {
+                FireDelay = .5f;
+            }
+
+            FireDelayTimer -= Time.deltaTime;
+            if (FireDelayTimer <= 0)
+                FireDelayTimer = 0;
+
+            RecoilTimer -= Time.deltaTime;
+            if (RecoilTimer <= 0)
+                RecoilTimer = 0;
+
+            if (HoldToFire ? Input_FireHold : Input_FireDown)
+            {
+                if (FireDelayTimer == 0)
+                {
+
+                    FireWeapon();
+                    FireDelayTimer = FireDelay;
+                    RecoilTimer = 1f;
+                }
+
+            }
+        }
+
+        public override void FireWeapon()
+        {
+            audioSource?.Play();
+            GameObject obj;
+            obj = Instantiate(BulletPrefab);
+            obj.transform.position = m_FirePoint.position;
+            obj.transform.forward = m_FirePoint.forward;
+            Projectile_Base proj = obj.GetComponent<Projectile_Base>();
+            proj.Creator = m_Owner;
+            proj.Speed = ProjectileSpeed;
+            proj.Damage = Damage;
+            proj.m_Range = Range;
+            Destroy(obj, 5);
+
+            obj = Instantiate(EffectPrefab);
+            obj.transform.SetParent(m_ParticlePoint);
+            obj.transform.localPosition = Vector3.zero;
+            obj.transform.forward = m_ParticlePoint.forward;
+            Destroy(obj, 3);
+            Recoil(m_Owner);
+        }
+    }
+}
